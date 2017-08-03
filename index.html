@@ -3,7 +3,11 @@
 <head> 
 	<meta charset="UTF-8" />
 	<title>Phaser - Template</title>
+    
     <script src="data/phaser.js"></script>
+    <script src="data/boot.js"></script>
+    <script src="data/main.js"></script>
+    
     <style type="text/css">
         body {
             margin: 0;
@@ -14,102 +18,15 @@
 
 <script type="text/javascript">
 
-var game = new Phaser.Game(1024, 704, Phaser.AUTO, '', { preload: preload, create: create, update: update });
-
-function preload() {
-    
-    game.load.tilemap('level0', '/tiled/level0.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.image('tileset', '/assets/tileset.png');
-    game.load.image('player', '/assets/player.png');
-    
-    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    game.scale.pageAlignHorizontally = true;
-    game.scale.pageAlignVertically = true;
-    
-}
-    
-let map;
-let layer0;
-let layer1;
-
-let cursors;
-
-let player;
-let playerGravity = 1400;
-let playerJump = -575;
-let playerAcc = 30;
-let playerMaxX = 350;
-
-let debugText;
-
-function create() {
-    
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-    
-    map = game.add.tilemap('level0')
-    map.addTilesetImage('default_tileset', 'tileset', 32, 32);
-    
-    layer0 = map.createLayer('background');
-    layer1 = map.createLayer('foreground');
-    
-    player = game.add.sprite(64, 64, 'player');
-    game.physics.enable(player, Phaser.Physics.ARCADE);
-    
-    player.body.collideWorldBounds = true;
-    player.body.gravity.y = playerGravity;
-    
-    map.setCollisionByExclusion([], true, layer1);
-    
-    cursors = game.input.keyboard.createCursorKeys();
-    
-    debugText = game.add.text(16, 16, 'Hello World');
-    
-}
-
-
-function update() {
-    
-    hitPlatform = game.physics.arcade.collide(player, layer1);
-    
-    //move left    
-    if (cursors.left.isDown) {
-        player.body.velocity.x = player.body.velocity.x - playerAcc;
-        player.body.velocity.x = Math.max(player.body.velocity.x , -playerMaxX);
-    }
-    
-    //move right
-    else if (cursors.right.isDown) {
-        player.body.velocity.x = player.body.velocity.x + playerAcc;
-        player.body.velocity.x = Math.min(player.body.velocity.x , playerMaxX);
-    }
-    
-    //deceleration moving right
-    else if (player.body.velocity.x > 0) {
-        player.body.velocity.x = player.body.velocity.x - playerAcc;
-        if (player.body.velocity.x < 0) {
-            player.body.velocity.x = 0;
-        }
+    (function() {
         
-    }
-    
-    //deceleration moving left
-    else if (player.body.velocity.x < 0) {
-        player.body.velocity.x = player.body.velocity.x + playerAcc;
-        if (player.body.velocity.x > 0) {
-            player.body.velocity.x = 0;
-        }
-    }
-    
-    //jump
-    if (cursors.up.isDown && player.body.blocked.down && hitPlatform) {
-        player.body.velocity.y = playerJump;
+        var game = new Phaser.Game(1024, 704, Phaser.AUTO, "game");
         
-    }
-    
-    debugText.text = 'player velocity: x= '+player.body.velocity.x + ' y= '+Math.round(player.body.velocity.y);
-    
-}
-
+        game.state.add("boot",boot);
+        game.state.add("main",main);
+        
+        game.state.start("boot");
+    })();
 </script>
 
 </body>
