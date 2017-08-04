@@ -71,7 +71,7 @@
 
         you can see in the example above we have a private function superSecretFunction(). This is invisible to the outside world. Only within that funky (function() { })() can call it!
         this is useful if you want to create a complicated module/actor/character that has tons of helper functions and misc code, but you only have a few things you want to make
-        available phonically. E.g. when you call character.update() it in turn calls the updatePhysics() updateAnimation() updateHealth() functions private to itself!
+        available publiclly. E.g. when you call character.update() it in turn calls the updatePhysics() updateAnimation() updateHealth() functions private to itself!
 
         This method of doing things is quite common for older javascript as there had not yet been invented a way to modularise code. With stuff like the new import/export stuff I mentioned,
         you no longer have to wrap your code in these scopes as a javascript loaded into your page via "import" is considered to be private. The way you expose stuff publicly (like the example above)
