@@ -1,6 +1,7 @@
 var boot = function(game) {
     console.log("Initialising Boot");
     this.menuOption = 'settings';
+    alert(playerScore);
 
 }; //why does the ; need to be here or does it?
 /*
