@@ -7,6 +7,7 @@
     <script src="data/globals.js"></script>
     <script src="data/phaser.js"></script>
     <script src="data/boot.js"></script>
+    <script src="data/mainMenu.js"></script>
     <script src="data/main.js"></script>
     
     <style type="text/css">
@@ -23,6 +24,7 @@
         
         game.state.add("boot", boot);
         game.state.add("main", main);
+        game.state.add("mainMenu", mainMenu);
         
         game.state.start("boot");
     })(); 

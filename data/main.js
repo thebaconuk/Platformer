@@ -12,8 +12,6 @@ main.prototype = {
     
     create: function() {
         
-        let playerGravity = 1400;
-        
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
     
         map = this.game.add.tilemap('level0')
