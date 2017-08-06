@@ -17,7 +17,7 @@
 </head>
 <body>
 
-<script>//old browsers you generally had to specify what the script tag contained, as it was from an era where javascript wasnt guaranteed to be the mainstream scripting solution for web! I would advise just remove it
+<script>
     (function() {
         var game = new Phaser.Game(1024, 704, Phaser.AUTO, "game");
         
@@ -25,61 +25,7 @@
         game.state.add("main", main);
         
         game.state.start("boot");
-    })(); //why is there a (); at the end and also why is the whole function wrapped in brackets?
-
-    /*
-        this is what we call a self executing function. What it does is setup a private "scope" so that anything within does not get dumped into global!
-        e.g.
-        ---
-        (function() {
-            var helloIamLocal = 123;
-
-            function helloIAmALocalFunction() {
-                alert('hello');
-            }
-
-            helloIAmALocalFunction();
-        })();
-
-        //if i try and call helloIAmALocalFunction() here, it wont work!
-        ---
-
-        you can see here in this example that i am defining a local function and variable to use in the scope, and only in that scope. It works by calling an anonymous function.
-        Or in english, its creating an "inline" function, and then immediately calling it. After that the function is not accessible to call. Sometimes people return an object
-        from the function like so:
-
-        ---
-        var myThing = (function() {
-            //private function
-            function superSecretFunction() {
-                alert('blah');
-            }
-
-            //public function
-            function doUpdate() {
-            	superSecretFunction();
-            }
-
-            //ok lets return an object that gives us a way to call inside this private scope!
-            return {
-                update: doUpdate,
-            }
-        })();
-
-        //ok lets call that function
-        myThing.update();
-        ---
-
-        you can see in the example above we have a private function superSecretFunction(). This is invisible to the outside world. Only within that funky (function() { })() can call it!
-        this is useful if you want to create a complicated module/actor/character that has tons of helper functions and misc code, but you only have a few things you want to make
-        available publiclly. E.g. when you call character.update() it in turn calls the updatePhysics() updateAnimation() updateHealth() functions private to itself!
-
-        This method of doing things is quite common for older javascript as there had not yet been invented a way to modularise code. With stuff like the new import/export stuff I mentioned,
-        you no longer have to wrap your code in these scopes as a javascript loaded into your page via "import" is considered to be private. The way you expose stuff publicly (like the example above)
-        is by writing your export definitions in that particular file. Its worth a read: http://javascript.tutorialhorizon.com/2015/06/23/es6-modules-examples/
-
-        But saying all of that, it is not 100% required to wrap in scopes. If you choose, you can just do everything in global scope. Just bare in mind that this gets messy as your project gets bigger!
-    */
+    })(); 
 </script>
 
 </body>
